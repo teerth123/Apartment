@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import axios from 'axios';
 
 const ContactForm = () => {
     const [formData, setFormData] = useState({
@@ -19,9 +20,18 @@ const ContactForm = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setSubmitted(true);
+        try {
+            const response = await axios.post('https://deploy-constructiontest.onrender.com/api/send-email', formData);
+            if (response.status === 200) {
+                alert('Thank you! Your message has been received.');
+                setSubmitted(true);
+            }
+        } catch (error) {
+            console.error('Error sending email:', error);
+            alert('There was an error sending your message. Please try again later.');
+        }
     };
 
     return (

@@ -1,6 +1,6 @@
-import { cn } from "../lib/utils";
-import { AnimatePresence, motion, useInView } from "motion/react";
-import { useRef } from "react";
+import { useState } from 'react';
+import { AnimatePresence, motion, useInView } from 'motion/react';
+import { useRef } from 'react';
 
 export default function Gallery() {
   const images = [
@@ -14,9 +14,17 @@ export default function Gallery() {
     'https://images.unsplash.com/photo-1515120263166-b676e1f61045?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGFwYXJ0bWVudCUyMGJ1aWxkaW5nfGVufDB8fDB8fHww'
   ];
 
+  // State to handle the number of images shown
+  const [visibleImages, setVisibleImages] = useState(4);
+
   // Randomize image heights for a Pinterest-like layout
   const randomHeights = [200, 250, 300, 350]; // Define possible heights for images
   const randomHeight = () => randomHeights[Math.floor(Math.random() * randomHeights.length)];
+
+  // Handle "See More" button click to load more images
+  const handleLoadMore = () => {
+    setVisibleImages(visibleImages + 4); // Load 4 more images at a time
+  };
 
   return (
     <section id="gallery" className="py-20">
@@ -27,7 +35,7 @@ export default function Gallery() {
 
         {/* Grid layout with masonry-like structure */}
         <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-flow-row-dense">
-          {images.map((image, index) => (
+          {images.slice(0, visibleImages).map((image, index) => (
             <BlurFade key={index} className="relative overflow-hidden rounded-lg">
               <div
                 className="relative w-full h-full"
@@ -43,11 +51,17 @@ export default function Gallery() {
           ))}
         </div>
 
-        <div className="mt-12 text-center">
-          <button className="bg-primary text-white px-8 py-3 rounded-md hover:bg-primary-dark transition duration-300">
-            View All Images
-          </button>
-        </div>
+        {/* Only show the "See More" button on mobile */}
+        {visibleImages < images.length && (
+          <div className="mt-12 text-center">
+            <button
+              onClick={handleLoadMore}
+              className="bg-primary text-white px-8 py-3 rounded-md hover:bg-primary-dark transition duration-300"
+            >
+              See More
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

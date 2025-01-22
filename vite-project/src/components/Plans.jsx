@@ -38,7 +38,8 @@ export default function Plans() {
         <h2 className="text-4xl font-extrabold text-center text-gray-800 mb-12 tracking-wide">
           Floor Plans
         </h2>
-        <div className="flex justify-center gap-8">
+        {/* Added responsive grid layout */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {plans.map((plan, index) => (
             <Card key={index} plan={plan} isMiddle={index === 1} />
           ))}
@@ -51,7 +52,7 @@ export default function Plans() {
 function Card({ plan, isMiddle }) {
   return (
     <div
-      className={`relative drop-shadow-xl bg-white rounded-xl shadow-xl transition-all duration-300 ${
+      className={`relative drop-shadow-xl bg-white rounded-xl shadow-xl transition-all duration-300 mx-5 my-3 ${
         isMiddle ? 'scale-110' : 'scale-105'
       }`}
     >
