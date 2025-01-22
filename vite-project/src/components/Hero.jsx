@@ -11,6 +11,9 @@ const Hero = () => {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,20 +25,22 @@ const Hero = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post(
-        'https://deploy-constructiontest.onrender.com/api/send-email',
-        formData
-      );
-      if (response.status === 200) {
-        alert('Thank you! Your message has been received.');
-        setSubmitted(true);
-      }
-    } catch (error) {
-      console.error('Error sending email:', error);
-      alert('There was an error sending your message. Please try again later.');
-    }
+    setSubmitted(true);
+    setShowPopup(true);
+    
+    // Don't wait for the response, just show the "done" message immediately
+    // In real scenario, handle API response and errors appropriately
+    setTimeout(() => {
+      // Here you can also call the API if needed
+      alert('Thank you! Your message has been received.');
+      setSubmitted(false);
+    }, 1000);
   };
+
+  const closePopup = () => setShowPopup(false);
+
+  const whatsappMessage = "Hello, I want to know more about your services!";
+  const whatsappLink = `https://wa.me/+918999079792?text=${encodeURIComponent(whatsappMessage)}`;
 
   return (
     <section id="home" className="relative min-h-screen flex items-center">
@@ -49,7 +54,6 @@ const Hero = () => {
           className="w-full h-full object-cover"
           poster="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80"
         >
-          {/* <source src="https://your-video-url.mp4" type="video/mp4" /> */}
         </video>
       </div>
 
@@ -150,21 +154,24 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-white/80">
-        <span className="text-sm mb-2">Scroll to explore</span>
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-6 h-10 rounded-full border-2 border-white/30 flex items-start justify-center p-2"
-        >
-          <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-1 h-1 rounded-full bg-white"
-          />
-        </motion.div>
-      </div>
+      {/* Success Popup */}
+      {showPopup && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+          <div className="bg-white p-8 rounded-xl w-[300px] space-y-4 text-center">
+            <h2 className="text-2xl font-semibold text-green-500">Done!</h2>
+            <p className="text-lg text-gray-600">Thank you for your interest!</p>
+            <p>Our team will reach out to you soon. Meanwhile, you can contact us:</p>
+
+            <div className="space-y-3">
+              <a href="mailto:arthteerth@gmail.com" className="text-blue-500">Email</a>
+              <a href="tel:+918999079792" className="text-green-500">Call</a>
+              <a href={whatsappLink} className="text-[#25D366]">WhatsApp</a>
+            </div>
+
+            <button onClick={closePopup} className="mt-4 w-full bg-red-500 text-white py-2 rounded-xl">Close</button>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

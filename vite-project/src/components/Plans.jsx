@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import axios from "axios"; // Import axios for API calls
+
 export default function Plans() {
   const plans = [
     {
@@ -39,6 +41,7 @@ export default function Plans() {
     phone: "",
     email: "",
     message: "",
+    timeToVisit: "",
   });
   const [submitted, setSubmitted] = useState(false);
 
@@ -49,6 +52,9 @@ export default function Plans() {
       [name]: value,
     });
   };
+
+  const whatsappMessage = "Hello, I want to know more about your services!";
+  const whatsappLink = `https://wa.me/+918999079792?text=${encodeURIComponent(whatsappMessage)}`;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -85,10 +91,9 @@ export default function Plans() {
         <h2 className="text-4xl font-extrabold text-center text-gray-800 mb-12 tracking-wide">
           Floor Plans
         </h2>
-        {/* Added responsive grid layout */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {plans.map((plan, index) => (
-            <Card key={index} plan={plan} isMiddle={index === 1} />
+            <Card key={index} plan={plan} isMiddle={index === 1} setShowPopup={setShowPopup} />
           ))}
         </div>
       </div>
@@ -133,6 +138,14 @@ export default function Plans() {
                   className="w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-primary"
                   required
                 />
+                <input
+                  type="text"
+                  name="timeToVisit"
+                  value={formData.timeToVisit}
+                  onChange={handleChange}
+                  placeholder="Preferred Time to Visit"
+                  className="w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-primary"
+                />
                 <textarea
                   name="message"
                   value={formData.message}
@@ -150,6 +163,35 @@ export default function Plans() {
                 </button>
               </div>
             </form>
+            <div className="flex gap-3 mt-4 justify-center">
+              <a
+                href="mailto:arthteerth@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 rounded-full bg-blue-500 text-white shadow-lg flex justify-center items-center"
+                style={{ width: "60px", height: "60px" }}
+              >
+                <i className="ri-mail-line text-2xl"></i>
+              </a>
+              <a
+                href="tel:+918999079792"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 rounded-full bg-green-500 text-white shadow-lg flex justify-center items-center"
+                style={{ width: "60px", height: "60px" }}
+              >
+                <i className="ri-phone-line text-2xl"></i>
+              </a>
+              <a
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 rounded-full bg-[#25D366] text-white shadow-lg flex justify-center items-center"
+                style={{ width: "60px", height: "60px" }}
+              >
+                <i className="ri-whatsapp-line text-2xl"></i>
+              </a>
+            </div>
           </div>
         </div>
       )}
@@ -157,7 +199,7 @@ export default function Plans() {
   );
 }
 
-function Card({ plan, isMiddle }) {
+function Card({ plan, isMiddle, setShowPopup }) { // Accept setShowPopup as a prop
   return (
     <div
       className={`relative drop-shadow-xl bg-white rounded-xl shadow-xl transition-all duration-300 mx-5 my-3 ${
@@ -179,15 +221,16 @@ function Card({ plan, isMiddle }) {
             </li>
           ))}
         </ul>
-        <button className="mt-4 w-full bg-gradient-to-r from-primary to-primary-dark text-white py-2 rounded-lg shadow-md hover:shadow-lg transition duration-300"
-        onClick={() => setShowPopup(true)}>
-          Book a visit 
+        <button
+          className="mt-4 w-full bg-gradient-to-r from-primary to-primary-dark text-white py-2 rounded-lg shadow-md hover:shadow-lg transition duration-300"
+          onClick={() => setShowPopup(true)} // Use setShowPopup here
+        >
+          Book a visit
         </button>
       </div>
       <div className="absolute top-4 right-4 bg-white rounded-full shadow-md p-2">
         <span className="text-sm font-bold text-primary">New</span>
       </div>
-      
     </div>
   );
 }

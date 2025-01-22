@@ -42,6 +42,9 @@ const Pricing = () => {
     },
   ];
 
+  const whatsappMessage = "Hello, I want to know more about your services!";
+  const whatsappLink = `https://wa.me/+918999079792?text=${encodeURIComponent(whatsappMessage)}`;
+
   // Function to create the carousel slides with circular behavior
   const createSlides = () => {
     const extendedPrices = [...prices, prices[0]];  // Adding first price to the end to create seamless loop
@@ -55,12 +58,13 @@ const Pricing = () => {
     }));
   };
 
-
   const [showPopup, setShowPopup] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
     email: "",
+    whatsapp: "",
+    preferredTime: "",
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
@@ -165,6 +169,14 @@ const Pricing = () => {
                   className="w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-primary"
                   required
                 />
+                <input
+                  type="text"
+                  name="timeToVisit"
+                  value={formData.timeToVisit}
+                  onChange={handleChange}
+                  placeholder="Preferred Time to Visit"
+                  className="w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-primary"
+                />
                 <textarea
                   name="message"
                   value={formData.message}
@@ -182,6 +194,40 @@ const Pricing = () => {
                 </button>
               </div>
             </form>
+            <div className="flex gap-3 mt-4 justify-center">
+              {/* Email Icon */}
+              <a
+                href="mailto:arthteerth@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 rounded-full bg-blue-500 text-white shadow-lg flex justify-center items-center"
+                style={{ width: "60px", height: "60px" }}
+              >
+                <i className="ri-mail-line text-2xl"></i>
+              </a>
+
+              {/* Phone Icon */}
+              <a
+                href="tel:+918999079792"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 rounded-full bg-green-500 text-white shadow-lg flex justify-center items-center"
+                style={{ width: "60px", height: "60px" }}
+              >
+                <i className="ri-phone-line text-2xl"></i>
+              </a>
+
+              {/* WhatsApp Icon */}
+              <a
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 rounded-full bg-[#25D366] text-white shadow-lg flex justify-center items-center"
+                style={{ width: "60px", height: "60px" }}
+              >
+                <i className="ri-whatsapp-line text-2xl"></i>
+              </a>
+            </div>
           </div>
         </div>
       )}

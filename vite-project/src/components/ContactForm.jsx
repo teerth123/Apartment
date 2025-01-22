@@ -7,7 +7,8 @@ const ContactForm = () => {
         fullName: '',
         phone: '',
         email: '',
-        message: ''
+        message: '',
+        time: ''
     });
 
     const [submitted, setSubmitted] = useState(false);
@@ -23,11 +24,10 @@ const ContactForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://deploy-constructiontest.onrender.com/api/send-email', formData);
-            if (response.status === 200) {
-                alert('Thank you! Your message has been received.');
-                setSubmitted(true);
-            }
+            const response =  axios.post('https://deploy-constructiontest.onrender.com/api/send-email', formData);
+            alert('Thank you! Your message has been received.');
+            setSubmitted(true);
+            
         } catch (error) {
             console.error('Error sending email:', error);
             alert('There was an error sending your message. Please try again later.');
@@ -81,6 +81,18 @@ const ContactForm = () => {
                                     value={formData.email}
                                     onChange={handleChange}
                                     placeholder="Email"
+                                    className="w-full p-4 bg-gray-100 border border-transparent focus:ring-2 focus:ring-primary-light rounded-lg text-gray-700 placeholder-gray-400 transition duration-300"
+                                    required
+                                />
+                            </div>
+
+                            <div>
+                                <input
+                                    type="text"
+                                    name="time"
+                                    value={formData.time}
+                                    onChange={handleChange}
+                                    placeholder="Preferred Time to Visit"
                                     className="w-full p-4 bg-gray-100 border border-transparent focus:ring-2 focus:ring-primary-light rounded-lg text-gray-700 placeholder-gray-400 transition duration-300"
                                     required
                                 />

@@ -19,9 +19,13 @@ const Overview = () => {
     fullName: "",
     phone: "",
     email: "",
+    timeToVisit: "",
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+
+  const whatsappMessage = "Hello, I want to know more about your services!";
+  const whatsappLink = `https://wa.me/+918999079792?text=${encodeURIComponent(whatsappMessage)}`;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,22 +35,21 @@ const Overview = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post(
-        "https://deploy-constructiontest.onrender.com/api/send-email",
-        formData
-      );
-      if (response.status === 200) {
-        alert("Thank you! Your message has been received.");
-        setSubmitted(true);
-        setShowPopup(false);
-      }
-    } catch (error) {
+    // Show the "done" message immediately
+    alert("Thank you! Your message has been received.");
+    setSubmitted(true);
+    setShowPopup(false);
+    
+    // Send the email in the background without waiting for the response
+    axios.post(
+      "https://deploy-constructiontest.onrender.com/api/send-email",
+      formData
+    ).catch((error) => {
       console.error("Error sending email:", error);
-      alert("There was an error sending your message. Please try again later.");
-    }
+      alert('There was an error sending your message. Please try again later.');
+    });
   };
 
   const handleScroll = () => {
@@ -147,6 +150,14 @@ const Overview = () => {
                   className="w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-primary"
                   required
                 />
+                <input
+                  type="text"
+                  name="timeToVisit"
+                  value={formData.timeToVisit}
+                  onChange={handleChange}
+                  placeholder="Preferred Time to Visit"
+                  className="w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-primary"
+                />
                 <textarea
                   name="message"
                   value={formData.message}
@@ -164,6 +175,40 @@ const Overview = () => {
                 </button>
               </div>
             </form>
+            <div className="flex gap-3 mt-4 justify-center">
+              {/* Email Icon */}
+              <a
+                href="mailto:arthteerth@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 rounded-full bg-blue-500 text-white shadow-lg flex justify-center items-center"
+                style={{ width: "60px", height: "60px" }}
+              >
+                <i className="ri-mail-line text-2xl"></i>
+              </a>
+
+              {/* Phone Icon */}
+              <a
+                href="tel:+918999079792"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 rounded-full bg-green-500 text-white shadow-lg flex justify-center items-center"
+                style={{ width: "60px", height: "60px" }}
+              >
+                <i className="ri-phone-line text-2xl"></i>
+              </a>
+
+              {/* WhatsApp Icon */}
+              <a
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 rounded-full bg-[#25D366] text-white shadow-lg flex justify-center items-center"
+                style={{ width: "60px", height: "60px" }}
+              >
+                <i className="ri-whatsapp-line text-2xl"></i>
+              </a>
+            </div>
           </div>
         </div>
       )}
