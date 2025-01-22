@@ -35,7 +35,7 @@ const ContactForm = () => {
     };
 
     return (
-        <div className="flex justify-center items-center h-screen bg-gradient-to-r from-blue-500 to-indigo-600">
+        <div className="flex justify-center items-center h-screen bg-gradient-to-r from-primary-light to-secondary-light">
             <motion.div 
                 className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg"
                 initial={{ opacity: 0 }}
@@ -57,7 +57,7 @@ const ContactForm = () => {
                                     value={formData.fullName}
                                     onChange={handleChange}
                                     placeholder="Full Name"
-                                    className="w-full p-4 bg-gray-100 border border-transparent focus:ring-2 focus:ring-blue-500 rounded-lg text-gray-700 placeholder-gray-400 transition duration-300"
+                                    className="w-full p-4 bg-gray-100 border border-transparent focus:ring-2 focus:ring-primary-light rounded-lg text-gray-700 placeholder-gray-400 transition duration-300"
                                     required
                                 />
                             </div>
@@ -69,7 +69,7 @@ const ContactForm = () => {
                                     value={formData.phone}
                                     onChange={handleChange}
                                     placeholder="Phone Number"
-                                    className="w-full p-4 bg-gray-100 border border-transparent focus:ring-2 focus:ring-blue-500 rounded-lg text-gray-700 placeholder-gray-400 transition duration-300"
+                                    className="w-full p-4 bg-gray-100 border border-transparent focus:ring-2 focus:ring-primary-light rounded-lg text-gray-700 placeholder-gray-400 transition duration-300"
                                     required
                                 />
                             </div>
@@ -81,7 +81,7 @@ const ContactForm = () => {
                                     value={formData.email}
                                     onChange={handleChange}
                                     placeholder="Email"
-                                    className="w-full p-4 bg-gray-100 border border-transparent focus:ring-2 focus:ring-blue-500 rounded-lg text-gray-700 placeholder-gray-400 transition duration-300"
+                                    className="w-full p-4 bg-gray-100 border border-transparent focus:ring-2 focus:ring-primary-light rounded-lg text-gray-700 placeholder-gray-400 transition duration-300"
                                     required
                                 />
                             </div>
@@ -93,14 +93,14 @@ const ContactForm = () => {
                                     onChange={handleChange}
                                     placeholder="Your Message"
                                     rows="4"
-                                    className="w-full p-4 bg-gray-100 border border-transparent focus:ring-2 focus:ring-blue-500 rounded-lg text-gray-700 placeholder-gray-400 transition duration-300"
+                                    className="w-full p-4 bg-gray-100 border border-transparent focus:ring-2 focus:ring-primary-light rounded-lg text-gray-700 placeholder-gray-400 transition duration-300"
                                     required
                                 ></textarea>
                             </div>
 
                             <button
                                 type="submit"
-                                className="w-full py-3 mt-6 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none transition duration-300 ease-in-out"
+                                className="w-full py-3 mt-6 bg-secondary text-black rounded-lg hover:bg-primary-light focus:outline-none transition duration-300 ease-in-out"
                             >
                                 Submit
                             </button>

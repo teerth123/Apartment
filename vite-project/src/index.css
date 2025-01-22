@@ -3,16 +3,17 @@
 @import 'tailwindcss/utilities';
 
 :root {
-  --primary-color: #2563eb;
-  --secondary-color: #1e40af;
-  --accent-color: #3b82f6;
-  --gradient-start: #2563eb;
-  --gradient-end: #1e40af;
+  --primary-color: #a58d2b;
+  --secondary-color: #8c7725;
+  --accent-color: #bca639;
+  --gradient-start: #a58d2b;
+  --gradient-end: #8c7725;
 }
+
 
 /* Modern Base Styles */
 body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family:'Playfair Display', serif;
   line-height: 1.5;
   color: #1a202c;
   background-color: #f8fafc;

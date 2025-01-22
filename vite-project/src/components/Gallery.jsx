@@ -27,7 +27,7 @@ export default function Gallery() {
   };
 
   return (
-    <section id="gallery" className="py-20">
+    <section id="gallery" className="py-20 bg-[#efebeb]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-bold text-center text-primary mb-12">
           Project Gallery
@@ -56,7 +56,7 @@ export default function Gallery() {
           <div className="mt-12 text-center">
             <button
               onClick={handleLoadMore}
-              className="bg-primary text-white px-8 py-3 rounded-md hover:bg-primary-dark transition duration-300"
+              className="bg-primary text-black px-8 py-3 rounded-md hover:bg-primary-dark transition duration-300"
             >
               See More
             </button>

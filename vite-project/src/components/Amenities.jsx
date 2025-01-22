@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Flower2, Dumbbell, Users, HeartPulse as Yoga, FishIcon as Swim, Home, Puzzle, Building2, Leaf, GamepadIcon, Library, Baby } from "lucide-react";
 import { MagicCard } from "./MagicCards";
-
+import { useState, useEffect } from 'react';
 
 
 export default function AmenitiesSection() {
@@ -24,8 +24,9 @@ export default function AmenitiesSection() {
     // Add your desired functionality (e.g., navigate, show modal, etc.)
   };
 
+  
   return (
-    <section className="py-16 bg-gradient-to-b ">
+    <section className="py-16 bg-[#efebeb] ">
       <div className="container mx-auto px-6 lg:px-12">
         {/* Section Header */}
         <div className="text-center mb-12">

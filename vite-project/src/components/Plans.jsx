@@ -181,7 +181,7 @@ function Card({ plan, isMiddle }) {
         </ul>
         <button className="mt-4 w-full bg-gradient-to-r from-primary to-primary-dark text-white py-2 rounded-lg shadow-md hover:shadow-lg transition duration-300"
         onClick={() => setShowPopup(true)}>
-          Download Floor Plan
+          Book a visit 
         </button>
       </div>
       <div className="absolute top-4 right-4 bg-white rounded-full shadow-md p-2">

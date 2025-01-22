@@ -63,7 +63,7 @@ const Overview = () => {
   return (
     <section id="overview" className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold text-center text-primary mb-12">
+        <h2 className="text-3xl font-bold text-center text-primary mb-12 drop-shadow-xl">
           Project Overview
         </h2>
 
@@ -80,7 +80,7 @@ const Overview = () => {
             ))}
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-6 drop-shadow-sm">
             <h3 className="text-2xl font-semibold text-primary">
               A life that comes in all shades of wellness and happiness
             </h3>
@@ -98,9 +98,9 @@ const Overview = () => {
             </p>
             <button
               onClick={() => setShowPopup(true)}
-              className="bg-primary text-white px-8 py-3 rounded-md hover:bg-primary-dark transition duration-300"
+              className="bg-primary text-black px-8 py-3 rounded-md hover:bg-primary-dark transition duration-300"
             >
-              Download E-Brochure
+              Book a Visit
             </button>
           </div>
         </div>

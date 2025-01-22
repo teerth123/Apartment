@@ -1,17 +1,40 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { AnimatedShinyText } from './AnimatesShinyText';
+import { useState } from 'react';
+import axios from 'axios';
 
 const Hero = () => {
   const [formData, setFormData] = useState({
-    name: '',
+    fullName: '',
     phone: '',
     email: '',
   });
 
-  const handleSubmit = (e) => {
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    try {
+      const response = await axios.post(
+        'https://deploy-constructiontest.onrender.com/api/send-email',
+        formData
+      );
+      if (response.status === 200) {
+        alert('Thank you! Your message has been received.');
+        setSubmitted(true);
+      }
+    } catch (error) {
+      console.error('Error sending email:', error);
+      alert('There was an error sending your message. Please try again later.');
+    }
   };
 
   return (
@@ -26,7 +49,7 @@ const Hero = () => {
           className="w-full h-full object-cover"
           poster="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80"
         >
-          <source src="https://your-video-url.mp4" type="video/mp4" />
+          {/* <source src="https://your-video-url.mp4" type="video/mp4" /> */}
         </video>
       </div>
 
@@ -34,16 +57,16 @@ const Hero = () => {
       <div className="relative z-20 w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Column */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="text-white space-y-8"
           >
             <AnimatedShinyText shimmerWidth={150}>
-            New Launch Offer 🎉
+              New Launch Offer 🎉
             </AnimatedShinyText>
-            
+
             <h1 className="text-5xl md:text-7xl font-bold leading-tight">
               Your Dream Home
               <span className="block text-accent-light">Awaits You</span>
@@ -84,34 +107,40 @@ const Hero = () => {
                   <div className="relative">
                     <input
                       type="text"
+                      name="fullName"
                       placeholder="Full Name"
+                      value={formData.fullName}
+                      onChange={handleChange}
                       className="w-full px-6 py-4 bg-white/5 rounded-xl border border-white/10 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-accent-light/50"
                       required
-                      onChange={(e) => setFormData({...formData, name: e.target.value})}
                     />
                   </div>
                   <div className="relative">
                     <input
                       type="tel"
+                      name="phone"
                       placeholder="Phone Number"
+                      value={formData.phone}
+                      onChange={handleChange}
                       className="w-full px-6 py-4 bg-white/5 rounded-xl border border-white/10 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-accent-light/50"
                       required
-                      onChange={(e) => setFormData({...formData, phone: e.target.value})}
                     />
                   </div>
                   <div className="relative">
                     <input
                       type="email"
+                      name="email"
                       placeholder="Email Address"
+                      value={formData.email}
+                      onChange={handleChange}
                       className="w-full px-6 py-4 bg-white/5 rounded-xl border border-white/10 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-accent-light/50"
                       required
-                      onChange={(e) => setFormData({...formData, email: e.target.value})}
                     />
                   </div>
                 </div>
                 <button
                   type="submit"
-                  className="w-full bg-accent-light hover:bg-accent-light/90 text-white py-4 rounded-xl font-medium transition-all duration-300 hover:shadow-lg hover:shadow-accent-light/25"
+                  className="w-full bg-accent-light hover:bg-accent-light/90 text-black py-4 rounded-xl font-medium transition-all duration-300 hover:shadow-lg hover:shadow-accent-light/25"
                 >
                   Schedule a Visit
                 </button>

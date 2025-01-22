@@ -117,10 +117,10 @@ const Pricing = () => {
           <p className="text-gray-600 mb-4 mt-10">
             *Prices are subject to change. Terms and conditions apply.
           </p>
-          <button className="bg-primary text-white px-8 py-3 rounded-md hover:bg-primary-dark transition duration-300"
+          <button className="bg-primary text-black px-8 py-3 rounded-md hover:bg-primary-dark transition duration-300"
             onClick={() => setShowPopup(true)}
           >
-            Download Price Breakup
+             Book a visit
           </button>
         </div>
       </div>
