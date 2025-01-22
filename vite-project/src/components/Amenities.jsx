@@ -2,22 +2,23 @@ import { useMemo } from 'react';
 import { Flower2, Dumbbell, Users, HeartPulse as Yoga, FishIcon as Swim, Home, Puzzle, Building2, Leaf, GamepadIcon, Library, Baby } from "lucide-react";
 import { MagicCard } from "./MagicCards";
 
-const amenities = useMemo(() => [
-  { icon: Flower2, name: "Multipurpose Court" },
-  { icon: Dumbbell, name: "Outdoor Fitness Zone" },
-  { icon: Users, name: "Working Pods" },
-  { icon: Yoga, name: "Yoga Lawn" },
-  { icon: Baby, name: "Toddlers Play Area" },
-  { icon: Home, name: "Swing Plaza" },
-  { icon: Puzzle, name: "Squash Court" },
-  { icon: Building2, name: "Multipurpose Hall" },
-  { icon: Leaf, name: "Gym" },
-  { icon: GamepadIcon, name: "Gaming Zone" },
-  { icon: Library, name: "Library" },
-  { icon: Swim, name: "Creche and Indoor Games" },
-], []);
+
 
 export default function AmenitiesSection() {
+  const amenities = useMemo(() => [
+    { icon: Flower2, name: "Multipurpose Court" },
+    { icon: Dumbbell, name: "Outdoor Fitness Zone" },
+    { icon: Users, name: "Working Pods" },
+    { icon: Yoga, name: "Yoga Lawn" },
+    { icon: Baby, name: "Toddlers Play Area" },
+    { icon: Home, name: "Swing Plaza" },
+    { icon: Puzzle, name: "Squash Court" },
+    { icon: Building2, name: "Multipurpose Hall" },
+    { icon: Leaf, name: "Gym" },
+    { icon: GamepadIcon, name: "Gaming Zone" },
+    { icon: Library, name: "Library" },
+    { icon: Swim, name: "Creche and Indoor Games" },
+  ], []);
   const handleAmenityClick = (amenity) => {
     console.log(`Clicked on: ${amenity.name}`);
     // Add your desired functionality (e.g., navigate, show modal, etc.)
