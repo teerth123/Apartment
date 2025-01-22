@@ -15,7 +15,7 @@ function App() {
 
   const whatsappNumber = "YOUR_WHATSAPP_NUMBER"; // Replace with admin's WhatsApp number
   const whatsappMessage = "Hello, I want to know more about your services!";
-  const whatsappLink = `https://wa.me/${8999079792}?text=${encodeURIComponent(
+  const whatsappLink = `https://wa.me/${+918999079792}?text=${encodeURIComponent(
     whatsappMessage
   )}`;
 
