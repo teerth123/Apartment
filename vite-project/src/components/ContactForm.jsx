@@ -107,7 +107,7 @@ const ContactForm = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-primary hover:bg-primary-dark text-white py-3 rounded-xl font-medium transition-all duration-300 hover:shadow-lg hover:shadow-primary/25"
+              className="w-full bg-gradient-to-r from-primary to-primary-dark text-white hover:bg-primary-dark  py-3 rounded-xl font-medium transition-all duration-300 hover:shadow-lg hover:shadow-primary/25"
             >
               Submit
             </button>
@@ -137,17 +137,7 @@ const ContactForm = () => {
           </p>
 
           {/* WhatsApp Slider */}
-          <div className="flex justify-center">
-            <a
-              href={whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center bg-[#25D366] hover:bg-[#128C7E] text-white py-2 px-4 rounded-xl text-sm font-medium transition-all duration-300"
-            >
-              <span className="mr-2">Connect on WhatsApp</span>
-              <i className="ri-whatsapp-line text-lg"></i>
-            </a>
-          </div>
+          
         </motion.div>
       )}
 

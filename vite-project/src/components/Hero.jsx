@@ -114,7 +114,7 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           onClick={() => setShowForm(true)}
-          className="bg-accent-light hover:bg-accent-light/90 text-black py-3 px-8 rounded-xl font-medium text-lg transition-all duration-300 hover:shadow-lg hover:shadow-accent-light/25"
+          className="bg-gradient-to-r from-primary to-primary-dark text-white  py-3 px-8 rounded-xl font-medium text-lg transition-all duration-300 hover:shadow-lg hover:shadow-accent-light/25"
         >
           Book Visit Appointment
         </motion.button>

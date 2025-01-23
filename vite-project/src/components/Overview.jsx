@@ -72,7 +72,7 @@ const Overview = () => {
   }, [showPopup]);
 
   return (
-    <section id="overview" className="py-20 bg-gray-50">
+    <section id="overview" className="py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-12 drop-shadow-xl">
           Project Overview
@@ -111,7 +111,7 @@ const Overview = () => {
             </p>
             <button
               onClick={() => setShowPopup(true)}
-              className="bg-primary text-black px-8 py-3 rounded-md hover:bg-primary-dark transition duration-300"
+              className="bg-gradient-to-r from-primary to-primary-dark text-white px-8 py-3 rounded-md hover:bg-primary-dark transition duration-300"
             >
               Book a Visit
             </button>

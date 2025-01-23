@@ -7,32 +7,38 @@ export default function Plans() {
     {
       type: '2 BHK',
       features: [
+        'Carpet Area: 900 sq. ft.',
         'Spacious living room',
         'Modern kitchen',
         'Attached bathrooms',
         'Balcony',
+        'Parking: 1 Covered Car Parking'
       ],
-      image: 'https://imgs.search.brave.com/MXdOIkXgRJlFoEhiHZ2PsCEfPDhGKGROp-95bX0eufc/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTMz/OTkxMjIyMS9waG90/by9vZmZpY2UtYnVp/bGRpbmcuanBnP3M9/NjEyeDYxMiZ3PTAm/az0yMCZjPUJ5YTBE/UEFabWk2djlzcm1n/TmpkeHhBaENlMVM0/QzQ3QmoxazJnVk90/OTg9',
+      image: 'https://the25southprabhadevi.in/wp-content/uploads/2024/11/29730_B1_1F1_3D.jpg',
     },
     {
       type: '3 BHK',
       features: [
+        'Carpet Area: 1,200 sq. ft.',
         'Large living room',
         'Modular kitchen',
         'Servant room',
         'Multiple balconies',
+        'Parking: 2 Covered Car Parkings'
       ],
-      image: 'https://imgs.search.brave.com/X9noBlN1RRbUHvTsSByOIDzQqFRhqS9z_PMPtkHhgnU/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTQ1/ODAwMjYzNi9waG90/by9jb25zdHJ1Y3Rp/b24td29ya2Vycy1p/bi1idWlsZGluZy1z/aXRlLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz1ET1VPdkRF/VjJaUHpMbGpEd29Y/TEU5Ni1oVzVPTWIx/alBFakptNkVkVkdZ/PQ',
+      image: 'https://the25southprabhadevi.in/wp-content/uploads/2024/11/29730_B1_1F2_3D.jpg',
     },
     {
       type: '4 BHK',
       features: [
+        'Carpet Area: 1,600 sq. ft.',
         'Premium living space',
         'Designer kitchen',
         'Servant quarter',
         'Private terrace',
+        'Parking: 2 Covered Car Parkings'
       ],
-      image: 'https://imgs.search.brave.com/zATbJNrMc8F4GKxX8Sc3w3LuHvWP7wqnrm0Yb1Y9ZcM/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTMy/MzAzMDU1Ni9waG90/by9jb25zdHJ1Y3Rp/b24tdG93ZXItY3Jh/bmVzLW9uLWEtYnVp/bGRpbmctc2l0ZS5q/cGc_cz02MTJ4NjEy/Jnc9MCZrPTIwJmM9/bjdMRy1lWkNtUFBR/aDNRcUhVcy1SdEdh/WHl0RTVVNDFxSkEw/VFJjek14QT0',
+      image: 'https://the25southprabhadevi.in/wp-content/uploads/2024/11/29730_B1_1F1_3D.jpg',
     },
   ];
 
@@ -93,7 +99,7 @@ export default function Plans() {
   const whatsappLink = `https://wa.me/+918999079792?text=${encodeURIComponent(whatsappMessage)}`;
 
   return (
-    <section id="plans" className="py-20 bg-gradient-to-br from-gray-50 to-gray-200">
+    <section id="plans" className="py-16 bg-gradient-to-br from-gray-50 to-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-4xl font-extrabold text-center text-gray-800 mb-12 tracking-wide">
           Floor Plans
@@ -232,7 +238,7 @@ function Card({ plan, isMiddle, setShowPopup }) {
     >
       <img
         alt={plan.type}
-        className="object-cover rounded-t-xl w-full h-48"
+        className="object-contain rounded-t-xl w-full h-48"
         src={plan.image}
       />
       <div className="p-6 space-y-4">

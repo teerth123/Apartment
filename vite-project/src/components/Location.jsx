@@ -32,7 +32,7 @@ const Location = () => {
   };
 
   return (
-    <section id="location" className="py-20 bg-[#efebeb]">
+    <section id="location" className="py-16 bg-[#efebeb]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-4xl font-bold text-center text-gray-800 mb-12">
           Project Connectivity

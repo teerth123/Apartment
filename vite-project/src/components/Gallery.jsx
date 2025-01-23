@@ -1,25 +1,29 @@
 import { useState } from 'react';
-import { AnimatePresence, motion, useInView } from 'motion/react';
+import { AnimatePresence, motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 
 export default function Gallery() {
   const images = [
-    'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1512915922686-57c11dde9b6b?auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&q=80',
-    'https://plus.unsplash.com/premium_photo-1678963247798-0944cf6ba34d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YXBhcnRtZW50JTIwYnVpbGRpbmd8ZW58MHx8MHx8fDA%3D',
-    'https://plus.unsplash.com/premium_photo-1670275658703-33fb95fe50d8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YXBhcnRtZW50JTIwYnVpbGRpbmd8ZW58MHx8MHx8fDA%3D',
-    'https://images.unsplash.com/photo-1525953776754-6c4b7ee655ab?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGFwYXJ0bWVudCUyMGJ1aWxkaW5nfGVufDB8fDB8fHww',
-    'https://images.unsplash.com/photo-1515120263166-b676e1f61045?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGFwYXJ0bWVudCUyMGJ1aWxkaW5nfGVufDB8fDB8fHww'
+    {
+      url: 'https://ik.imagekit.io/qtmg0kqjk/Piramal_Revanta/gallery-1.jpg',
+      label: 'Elegant Drawing Room',
+    },
+    {
+      url: 'https://ik.imagekit.io/qtmg0kqjk/Piramal_Revanta/gallery-2.jpg',
+      label: 'Modern Kitchen',
+    },
+    {
+      url: 'https://ik.imagekit.io/qtmg0kqjk/Piramal_Revanta/gallery-3.jpg',
+      label: 'Spacious Balcony',
+    },
+    {
+      url: 'https://ik.imagekit.io/qtmg0kqjk/Piramal_Revanta/gallery-4.jpg',
+      label: 'Cozy Bedroom',
+    },
   ];
 
   // State to handle the number of images shown
   const [visibleImages, setVisibleImages] = useState(4);
-
-  // Randomize image heights for a Pinterest-like layout
-  const randomHeights = [200, 250, 300, 350]; // Define possible heights for images
-  const randomHeight = () => randomHeights[Math.floor(Math.random() * randomHeights.length)];
 
   // Handle "See More" button click to load more images
   const handleLoadMore = () => {
@@ -27,25 +31,26 @@ export default function Gallery() {
   };
 
   return (
-    <section id="gallery" className="py-20 bg-[#efebeb]">
+    <section id="gallery" className="py-16 bg-[#efebeb]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
           Project Gallery
         </h2>
 
         {/* Grid layout with masonry-like structure */}
-        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-flow-row-dense">
+        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {images.slice(0, visibleImages).map((image, index) => (
             <BlurFade key={index} className="relative overflow-hidden rounded-lg">
-              <div
-                className="relative w-full h-full"
-                style={{ height: `${randomHeight()}px` }} // Set random heights
-              >
+              <div className="relative w-full h-64"> {/* Fixed height for all images */}
                 <img
-                  src={image}
+                  src={image.url}
                   alt={`Gallery image ${index + 1}`}
                   className="object-cover w-full h-full"
                 />
+                {/* Text overlay */}
+                <div className="absolute bottom-2 right-2 bg-black/50 text-white text-sm px-2 py-1 rounded">
+                  {image.label}
+                </div>
               </div>
             </BlurFade>
           ))}

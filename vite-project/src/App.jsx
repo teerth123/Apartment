@@ -36,10 +36,10 @@ function App() {
           <Hero />
         </div>
         <Overview />
-        <Amenities />
         <Pricing />
-        <Gallery />
         <Plans />
+        <Amenities />
+        <Gallery />
         <Location />
         <ContactForm />
       </main>

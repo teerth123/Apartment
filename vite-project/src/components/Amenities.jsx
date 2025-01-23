@@ -26,7 +26,7 @@ export default function AmenitiesSection() {
 
   
   return (
-    <section className="py-16 bg-[#efebeb] " id="amenities">
+    <section className="py-16 bg-[#efebeb] " id="overview">
       <div className="container mx-auto px-6 lg:px-12">
         {/* Section Header */}
         <div className="text-center mb-12">
