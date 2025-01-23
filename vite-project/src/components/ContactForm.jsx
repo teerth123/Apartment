@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
-import { FaTimes } from "react-icons/fa"; // Import the close icon
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -27,7 +26,7 @@ const ContactForm = () => {
     e.preventDefault();
     try {
       // Send form data to the email API
-      axios.post("https://deploy-constructiontest.onrender.com/api/send-email", formData);
+      await axios.post("https://deploy-constructiontest.onrender.com/api/send-email", formData);
       
       // Show success message
       alert("Thank you! Your message has been received.");
@@ -46,19 +45,11 @@ const ContactForm = () => {
     <div className="flex justify-center items-center h-screen bg-gradient-to-r from-primary-light to-secondary-light">
       {showForm && (
         <motion.div
-          className="bg-white p-8 rounded-xl w-[90%] max-w-[400px] space-y-6 relative"
+          className="bg-white p-8 rounded-xl w-[90%] max-w-[500px] space-y-6 relative"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3 }}
         >
-          {/* Close Icon (Top Right Corner) */}
-          <button
-            onClick={() => setShowForm(false)}
-            className="absolute top-4 right-4 text-gray-600 hover:text-gray-800 transition-all duration-300"
-          >
-            <FaTimes size={24} />
-          </button>
-
           {/* Title and Subtitle */}
           <div className="text-center">
             <h2 className="text-2xl font-semibold text-gray-800">Contact Us</h2>
@@ -109,7 +100,7 @@ const ContactForm = () => {
               value={formData.message}
               onChange={handleChange}
               className="w-full px-4 py-3 bg-gray-100 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/50"
-              rows="3"
+              rows="4"
               required
             ></textarea>
 
