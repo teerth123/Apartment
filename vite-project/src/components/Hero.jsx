@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaTimes } from 'react-icons/fa'; // Import the close icon
+import Picsart from '../assets/Picsart_25-01-23_22-14-20-768.jpg';
 
 const Hero = () => {
   const [formData, setFormData] = useState({
@@ -72,7 +73,7 @@ const Hero = () => {
           muted
           loop
           className="w-full h-full object-cover"
-          poster="https://images.pexels.com/photos/932328/pexels-photo-932328.jpeg?auto=compress&cs=tinysrgb&w=600"
+          poster={Picsart}
         >
           {/* Add your video source here */}
           <source src="your-video-url.mp4" type="video/mp4" />
