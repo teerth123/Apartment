@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Carousel } from "./ui/Carousel";
 import axios from "axios";
+import { FaTimes } from "react-icons/fa"; // Import the close icon
 
 const Pricing = () => {
   const prices = [
@@ -63,12 +64,11 @@ const Pricing = () => {
     fullName: "",
     phone: "",
     email: "",
-    whatsapp: "",
-    preferredTime: "",
+    timeToVisit: "",
     message: "",
   });
-  const [submitted, setSubmitted] = useState(false);
 
+  // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -77,39 +77,45 @@ const Pricing = () => {
     });
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post(
-        "https://deploy-constructiontest.onrender.com/api/send-email",
-        formData
-      );
-      if (response.status === 200) {
-        alert("Thank you! Your message has been received.");
-        setSubmitted(true);
-        setShowPopup(false);
-      }
-    } catch (error) {
-      console.error("Error sending email:", error);
-      alert("There was an error sending your message. Please try again later.");
+    // Show the "thank you" message immediately
+    alert("Thank you! Your message has been received.");
+    setShowPopup(false); // Close the form
+
+    // Send the POST request in the background
+    axios
+      .post("https://deploy-constructiontest.onrender.com/api/send-email", formData)
+      .catch((error) => {
+        console.error("Error sending email:", error);
+        alert("There was an error sending your message. Please try again later.");
+      });
+  };
+
+  // Close the form when clicking outside
+  const handleClickOutside = (e) => {
+    if (e.target.classList.contains("bg-black/50")) {
+      setShowPopup(false);
     }
   };
 
-  const handleScroll = () => {
-    if (showPopup) setShowPopup(false);
-  };
-
+  // Close the form when scrolling
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
+    const handleScroll = () => {
+      if (showPopup) {
+        setShowPopup(false);
+      }
     };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [showPopup]);
 
   return (
     <section id="pricing" className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold text-center text-primary mb-12">
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
           Pricing Details
         </h2>
 
@@ -121,111 +127,124 @@ const Pricing = () => {
           <p className="text-gray-600 mb-4 mt-10">
             *Prices are subject to change. Terms and conditions apply.
           </p>
-          <button className="bg-primary text-black px-8 py-3 rounded-md hover:bg-primary-dark transition duration-300"
+          <button
+            className="bg-primary text-black px-8 py-3 rounded-md hover:bg-primary-dark transition duration-300"
             onClick={() => setShowPopup(true)}
           >
-             Book a visit
+            Book a visit
           </button>
         </div>
       </div>
+
+      {/* Form Popup */}
       {showPopup && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md relative">
+        <div
+          className="fixed inset-0 flex items-center justify-center bg-black/50 z-50"
+          onClick={handleClickOutside} // Close the form when clicking outside
+        >
+          <div className="bg-white p-8 rounded-xl w-[90%] max-w-[400px] space-y-6 relative">
+            {/* Close Icon (Top Right Corner) */}
             <button
               onClick={() => setShowPopup(false)}
-              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+              className="absolute top-4 right-4 text-gray-600 hover:text-gray-800 transition-all duration-300"
             >
-              ✕
+              <FaTimes size={24} />
             </button>
-            <h3 className="text-2xl font-semibold text-center mb-4">
-              Fill in your details
-            </h3>
-            <form onSubmit={handleSubmit}>
-              <div className="space-y-4">
-                <input
-                  type="text"
-                  name="fullName"
-                  value={formData.fullName}
-                  onChange={handleChange}
-                  placeholder="Full Name"
-                  className="w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-primary"
-                  required
-                />
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  placeholder="Phone Number"
-                  className="w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-primary"
-                  required
-                />
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="Email"
-                  className="w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-primary"
-                  required
-                />
-                <input
-                  type="text"
-                  name="timeToVisit"
-                  value={formData.timeToVisit}
-                  onChange={handleChange}
-                  placeholder="Preferred Time to Visit"
-                  className="w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-primary"
-                />
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  placeholder="Your Message"
-                  rows="4"
-                  className="w-full p-3 border rounded-lg focus:outline-none focus:ring focus:ring-primary"
-                  required
-                ></textarea>
-                <button
-                  type="submit"
-                  className="w-full bg-primary text-white py-3 rounded-lg hover:bg-primary-dark transition duration-300"
-                >
-                  Submit
-                </button>
-              </div>
+
+            {/* Title and Subtitle */}
+            <div className="text-center">
+              <h2 className="text-2xl font-semibold text-gray-800">Schedule a Site Visit</h2>
+              <p className="text-sm text-gray-600 mt-2">Register Here And Avail The Best Offers!!</p>
+            </div>
+
+            {/* Form */}
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <input
+                type="text"
+                name="fullName"
+                placeholder="Full Name"
+                value={formData.fullName}
+                onChange={handleChange}
+                className="w-full px-4 py-3 bg-gray-100 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                required
+              />
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Phone Number"
+                value={formData.phone}
+                onChange={handleChange}
+                className="w-full px-4 py-3 bg-gray-100 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                required
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full px-4 py-3 bg-gray-100 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                required
+              />
+              <input
+                type="text"
+                name="timeToVisit"
+                placeholder="Preferred Time to Visit"
+                value={formData.timeToVisit}
+                onChange={handleChange}
+                className="w-full px-4 py-3 bg-gray-100 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/50"
+              />
+              <textarea
+                name="message"
+                placeholder="Message (Optional)"
+                value={formData.message}
+                onChange={handleChange}
+                className="w-full px-4 py-3 bg-gray-100 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                rows="3"
+              ></textarea>
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                className="w-full bg-primary hover:bg-primary-dark text-white py-3 rounded-xl font-medium transition-all duration-300 hover:shadow-lg hover:shadow-primary/25"
+              >
+                Book Visit Appointment
+              </button>
             </form>
-            <div className="flex gap-3 mt-4 justify-center">
-              {/* Email Icon */}
+
+            {/* reCAPTCHA Disclaimer */}
+            <p className="text-xs text-gray-500 text-center">
+              This site is protected by reCAPTCHA and the{" "}
               <a
-                href="mailto:arthteerth@gmail.com"
+                href="https://policies.google.com/privacy"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-full bg-blue-500 text-white shadow-lg flex justify-center items-center"
-                style={{ width: "60px", height: "60px" }}
+                className="text-primary hover:underline"
               >
-                <i className="ri-mail-line text-2xl"></i>
-              </a>
-
-              {/* Phone Icon */}
+                Google Privacy Policy
+              </a>{" "}
+              and{" "}
               <a
-                href="tel:+918999079792"
+                href="https://policies.google.com/terms"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-full bg-green-500 text-white shadow-lg flex justify-center items-center"
-                style={{ width: "60px", height: "60px" }}
+                className="text-primary hover:underline"
               >
-                <i className="ri-phone-line text-2xl"></i>
-              </a>
+                Terms of Service
+              </a>{" "}
+              apply.
+            </p>
 
-              {/* WhatsApp Icon */}
+            {/* WhatsApp Slider */}
+            <div className="flex justify-center">
               <a
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-full bg-[#25D366] text-white shadow-lg flex justify-center items-center"
-                style={{ width: "60px", height: "60px" }}
+                className="flex items-center justify-center bg-[#25D366] hover:bg-[#128C7E] text-white py-2 px-4 rounded-xl text-sm font-medium transition-all duration-300"
               >
-                <i className="ri-whatsapp-line text-2xl"></i>
+                <span className="mr-2">Connect on WhatsApp</span>
+                <i className="ri-whatsapp-line text-lg"></i>
               </a>
             </div>
           </div>

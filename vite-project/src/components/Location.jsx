@@ -1,29 +1,40 @@
-import React from 'react';
+import React, { useState } from "react";
+import { FaSchool, FaBus, FaHospital, FaShoppingBag } from "react-icons/fa"; // Import icons
 
 const Location = () => {
-  const highlights = [
-    {
-      category: 'IT Parks',
-      items: ['Hinjewadi IT Park - 7 mins', 'Upcoming WTC - 4 mins']
-    },
-    {
-      category: 'Healthcare',
-      items: ['Apollo Clinic - 2 mins', 'Multi-Specialty Hospital - 10 mins']
-    },
-    {
-      category: 'Education',
-      items: ['International School - 5 mins', 'Engineering College - 15 mins']
-    },
-    {
-      category: 'Shopping',
-      items: ['Shopping Mall - 8 mins', 'Retail Hub - 5 mins']
-    }
-  ];
+  const [selectedCategory, setSelectedCategory] = useState("Schools");
+
+  const categories = {
+    Schools: [
+      { name: "International School", distance: "5 mins" },
+      { name: "Engineering College", distance: "15 mins" },
+    ],
+    Transit: [
+      { name: "Metro Station", distance: "10 mins" },
+      { name: "Bus Stand", distance: "8 mins" },
+    ],
+    Hospitals: [
+      { name: "Apollo Clinic", distance: "2 mins" },
+      { name: "Multi-Specialty Hospital", distance: "10 mins" },
+    ],
+    Lifestyle: [
+      { name: "Shopping Mall", distance: "8 mins" },
+      { name: "Retail Hub", distance: "5 mins" },
+    ],
+  };
+
+  // Icon mapping for each category
+  const categoryIcons = {
+    Schools: <FaSchool className="text-2xl text-blue-500" />,
+    Transit: <FaBus className="text-2xl text-green-500" />,
+    Hospitals: <FaHospital className="text-2xl text-red-500" />,
+    Lifestyle: <FaShoppingBag className="text-2xl text-purple-500" />,
+  };
 
   return (
     <section id="location" className="py-20 bg-[#efebeb]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-4xl font-bold text-center text-primary mb-12">
+        <h2 className="text-4xl font-bold text-center text-gray-800 mb-12">
           Project Connectivity
         </h2>
 
@@ -41,29 +52,44 @@ const Location = () => {
             ></iframe>
           </div>
 
-          {/* Highlights Section */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {highlights.map((highlight, index) => (
-              <div
-                key={index}
-                className="bg-white shadow-md rounded-lg p-6 transition-transform duration-300 hover:shadow-xl hover:translate-y-[-2px]"
+          {/* Dropdown and Highlights Section */}
+          <div>
+            <div className="mb-6">
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
               >
-                <h3 className="text-xl font-semibold text-gray-800 mb-4">{highlight.category}</h3>
-                <hr className="my-2 border-gray-200" />
-                <ul className="space-y-3 mt-4">
-                  {highlight.items.map((item, idx) => (
-                    <li key={idx} className="text-gray-700">
-                      <span className="block font-medium text-gray-900">
-                        {item.split(' - ')[0]}
-                      </span>
-                      <span className="text-sm text-gray-500">
-                        {item.split(' - ')[1]}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
+                {Object.keys(categories).map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="bg-white shadow-md rounded-lg p-6">
+              {/* Category Header with Icon */}
+              <div className="flex items-center space-x-3 mb-4">
+                {categoryIcons[selectedCategory]}
+                <h3 className="text-xl font-semibold text-gray-800">
+                  {selectedCategory}
+                </h3>
               </div>
-            ))}
+              <hr className="my-2 border-gray-200" />
+              <ul className="space-y-3 mt-4">
+                {categories[selectedCategory].map((item, idx) => (
+                  <li key={idx} className="text-gray-700">
+                    <span className="block font-medium text-gray-900">
+                      {item.name}
+                    </span>
+                    <span className="text-sm text-gray-500">
+                      {item.distance}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </div>

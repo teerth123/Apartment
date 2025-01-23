@@ -6,19 +6,29 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#facc15', // Bright yellow
-          light: '#fde047',  // Softer yellow
-          dark: '#ca8a04',   // Mustard yellow
+          DEFAULT: '#facc15', // Bright yellow (keep as is)
+          light: '#fde047',  // Softer yellow (keep as is)
+          dark: '#ca8a04',   // Mustard yellow (keep as is)
         },
         secondary: {
-          DEFAULT: '#fbbf24', // Orange-yellow
-          light: '#fcd34d',   // Soft warm yellow
-          dark: '#f59e0b',    // Deeper orange-yellow
+          DEFAULT: '#0c3730', // Deep green (your provided color)
+          light: '#1a534a',   // Lighter green
+          dark: '#06201b',    // Darker green
         },
         accent: {
-          DEFAULT: '#fde68a', // Pale yellow
-          light: '#fef08a',   // Light pastel yellow
-          dark: '#eab308',    // Rich golden yellow
+          DEFAULT: '#d4af37', // Metallic gold
+          light: '#e5c76b',   // Soft gold
+          dark: '#b8860b',    // Rich gold
+        },
+        background: {
+          DEFAULT: '#f5f5f5', // Light off-white
+          light: '#ffffff',   // Pure white
+          dark: '#0c3730',    // Deep green for dark backgrounds
+        },
+        text: {
+          DEFAULT: '#333333', // Dark gray for text
+          light: '#666666',   // Light gray for secondary text
+          dark: '#0c3730',    // Deep green for headings
         },
       },
       fontFamily: {

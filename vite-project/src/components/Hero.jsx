@@ -1,20 +1,20 @@
 import { motion } from 'framer-motion';
-import { AnimatedShinyText } from './AnimatesShinyText';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { FaTimes } from 'react-icons/fa'; // Import the close icon
 
 const Hero = () => {
   const [formData, setFormData] = useState({
     fullName: '',
     phone: '',
     email: '',
+    time: '',
   });
 
-  const [submitted, setSubmitted] = useState(false);
-  const [showPopup, setShowPopup] = useState(false);
+  const [showForm, setShowForm] = useState(false); // State to control form visibility
+  const [submitted, setSubmitted] = useState(false); // State to track form submission
 
-  
-
+  // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -23,27 +23,47 @@ const Hero = () => {
     });
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setShowPopup(true);
-    
-    // Don't wait for the response, just show the "done" message immediately
-    // In real scenario, handle API response and errors appropriately
-    setTimeout(() => {
-      // Here you can also call the API if needed
-      alert('Thank you! Your message has been received.');
-      setSubmitted(false);
-    }, 1000);
+    try {
+      // Send form data to the email API
+      await axios.post('https://deploy-constructiontest.onrender.com/api/send-email', formData);
+      
+      // Show success message
+      alert('Thank you! Your message has been received. We will reach out to you soon.');
+      setSubmitted(true);
+      setShowForm(false); // Close the form after submission
+    } catch (error) {
+      console.error('Error sending email:', error);
+      alert('There was an error sending your message. Please try again later.');
+    }
   };
 
-  const closePopup = () => setShowPopup(false);
+  // Close the form when clicking outside
+  const handleClickOutside = (e) => {
+    if (e.target.classList.contains('bg-black/50')) {
+      setShowForm(false);
+    }
+  };
+
+  // Close the form when scrolling
+  useEffect(() => {
+    const handleScroll = () => {
+      if (showForm) {
+        setShowForm(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [showForm]);
 
   const whatsappMessage = "Hello, I want to know more about your services!";
   const whatsappLink = `https://wa.me/+918999079792?text=${encodeURIComponent(whatsappMessage)}`;
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center">
+    <section id="home" className="relative min-h-screen flex items-center justify-center">
       {/* Background with modern overlay */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent z-10"></div>
@@ -52,124 +72,164 @@ const Hero = () => {
           muted
           loop
           className="w-full h-full object-cover"
-          poster="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80"
+          poster="https://images.pexels.com/photos/932328/pexels-photo-932328.jpeg?auto=compress&cs=tinysrgb&w=600"
         >
+          {/* Add your video source here */}
+          <source src="your-video-url.mp4" type="video/mp4" />
         </video>
       </div>
 
-      {/* Content */}
-      <div className="relative z-20 w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left Column */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-white space-y-8"
-          >
-            <AnimatedShinyText shimmerWidth={150}>
-              New Launch Offer 🎉
-            </AnimatedShinyText>
+      {/* Centered Content */}
+      <div className="relative z-20 text-center text-white">
+        {/* Logo */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <img
+            src="https://ik.imagekit.io/qtmg0kqjk/Piramal_Revanta/logo.png" // Replace with your logo URL
+            alt="Logo"
+            className="w-54 h-54 mx-auto mb-6"
+          />
+        </motion.div>
 
-            <h1 className="text-5xl md:text-7xl font-bold leading-tight">
-              Your Dream Home
-              <span className="block text-accent-light">Awaits You</span>
-            </h1>
+        {/* Tagline */}
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-4xl md:text-6xl font-bold mb-6 text-white"
+        >
+          Timeless Design, Modern Luxury <br />
+          <h3 className="text-white">
+            Spacious 4 & 5 Bed Residences with Private Terraces <br />
+            Your Perfect Home Awaits.
+          </h3>
+        </motion.h1>
 
-            <div className="flex flex-wrap gap-6 text-lg">
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-accent-light"></span>
-                Premium 2-5 BHK
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-accent-light"></span>
-                Near IT Hub
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-accent-light"></span>
-                Zero Stamp Duty
-              </div>
-            </div>
-
-            <p className="text-2xl font-light">
-              Starting from <span className="font-bold text-accent-light">₹72L*</span>
-            </p>
-          </motion.div>
-
-          {/* Right Column - Enquiry Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative"
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-xl rounded-3xl"></div>
-            <div className="relative bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20">
-              <h3 className="text-2xl font-bold text-white mb-6">Register Interest</h3>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="space-y-4">
-                  <div className="relative">
-                    <input
-                      type="text"
-                      name="fullName"
-                      placeholder="Full Name"
-                      value={formData.fullName}
-                      onChange={handleChange}
-                      className="w-full px-6 py-4 bg-white/5 rounded-xl border border-white/10 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-accent-light/50"
-                      required
-                    />
-                  </div>
-                  <div className="relative">
-                    <input
-                      type="tel"
-                      name="phone"
-                      placeholder="Phone Number"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className="w-full px-6 py-4 bg-white/5 rounded-xl border border-white/10 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-accent-light/50"
-                      required
-                    />
-                  </div>
-                  <div className="relative">
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="Email Address"
-                      value={formData.email}
-                      onChange={handleChange}
-                      className="w-full px-6 py-4 bg-white/5 rounded-xl border border-white/10 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-accent-light/50"
-                      required
-                    />
-                  </div>
-                </div>
-                <button
-                  type="submit"
-                  className="w-full bg-accent-light hover:bg-accent-light/90 text-black py-4 rounded-xl font-medium transition-all duration-300 hover:shadow-lg hover:shadow-accent-light/25"
-                >
-                  Schedule a Visit
-                </button>
-              </form>
-            </div>
-          </motion.div>
-        </div>
+        {/* Book Visit Appointment Button */}
+        <motion.button
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          onClick={() => setShowForm(true)}
+          className="bg-accent-light hover:bg-accent-light/90 text-black py-3 px-8 rounded-xl font-medium text-lg transition-all duration-300 hover:shadow-lg hover:shadow-accent-light/25"
+        >
+          Book Visit Appointment
+        </motion.button>
       </div>
 
-      {/* Success Popup */}
-      {showPopup && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-          <div className="bg-white p-8 rounded-xl w-[300px] space-y-4 text-center">
-            <h2 className="text-2xl font-semibold text-green-500">Done!</h2>
-            <p className="text-lg text-gray-600">Thank you for your interest!</p>
-            <p>Our team will reach out to you soon. Meanwhile, you can contact us:</p>
+      {/* Form Popup */}
+      {showForm && (
+        <div
+          className="fixed inset-0 flex items-center justify-center bg-black/50 z-50"
+          onClick={handleClickOutside} // Close the form when clicking outside
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
+            className="bg-white p-8 rounded-xl w-[90%] max-w-[400px] space-y-6 relative"
+          >
+            {/* Close Icon (Top Right Corner) */}
+            <button
+              onClick={() => setShowForm(false)}
+              className="absolute top-4 right-4 text-gray-600 hover:text-gray-800 transition-all duration-300"
+            >
+              <FaTimes size={24} />
+            </button>
 
-            <div className="space-y-3">
-              <a href="mailto:arthteerth@gmail.com" className="text-blue-500">Email</a>
-              <a href="tel:+918999079792" className="text-green-500">Call</a>
-              <a href={whatsappLink} className="text-[#25D366]">WhatsApp</a>
+            {/* Title and Subtitle */}
+            <div className="text-center">
+              <h2 className="text-2xl font-semibold text-gray-800">Schedule a Site Visit</h2>
+              <p className="text-sm text-gray-600 mt-2">Register Here And Avail The Best Offers!!</p>
             </div>
 
-            <button onClick={closePopup} className="mt-4 w-full bg-red-500 text-white py-2 rounded-xl">Close</button>
-          </div>
+            {/* Form */}
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <input
+                type="text"
+                name="fullName"
+                placeholder="Full Name"
+                value={formData.fullName}
+                onChange={handleChange}
+                className="w-full px-4 py-3 bg-gray-100 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                required
+              />
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Phone Number"
+                value={formData.phone}
+                onChange={handleChange}
+                className="w-full px-4 py-3 bg-gray-100 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                required
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full px-4 py-3 bg-gray-100 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                required
+              />
+              <input
+                type="text"
+                name="time"
+                placeholder="Enter Preferred Time"
+                value={formData.time}
+                onChange={handleChange}
+                className="w-full px-4 py-3 bg-gray-100 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                required
+              />
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                className="w-full bg-primary hover:bg-primary-dark text-white py-3 rounded-xl font-medium transition-all duration-300 hover:shadow-lg hover:shadow-primary/25"
+              >
+                Book Visit Appointment
+              </button>
+            </form>
+
+            {/* reCAPTCHA Disclaimer */}
+            <p className="text-xs text-gray-500 text-center">
+              This site is protected by reCAPTCHA and the{" "}
+              <a
+                href="https://policies.google.com/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                Google Privacy Policy
+              </a>{" "}
+              and{" "}
+              <a
+                href="https://policies.google.com/terms"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                Terms of Service
+              </a>{" "}
+              apply.
+            </p>
+
+            {/* WhatsApp Slider */}
+            <div className="flex justify-center">
+              <a
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center bg-[#25D366] hover:bg-[#128C7E] text-white py-2 px-4 rounded-xl text-sm font-medium transition-all duration-300"
+              >
+                <span className="mr-2">Connect on WhatsApp</span>
+                <i className="ri-whatsapp-line text-lg"></i>
+              </a>
+            </div>
+          </motion.div>
         </div>
       )}
     </section>

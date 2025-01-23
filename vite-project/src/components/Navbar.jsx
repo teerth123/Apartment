@@ -24,18 +24,27 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
   ];
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-white shadow-xl' : 'bg-transparent'
-    }`}>
+    <nav
+      className={`fixed w-full z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-[#0c3730] shadow-xl' : 'bg-transparent'
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16 items-center">
+        <div className="flex justify-between h-20 items-center">
           {/* Brand */}
-          <div className="flex-shrink-0">
-            <h1 className="text-3xl font-extrabold tracking-wider text-primary font-poppins">Life Republic</h1>
+          <div className="flex items-center space-x-4">
+            <img
+              src="https://ik.imagekit.io/qtmg0kqjk/Piramal_Revanta/logo.png"
+              alt="Logo"
+              className="w-16 h-16 object-contain"
+            />
+            <h1 className="text-2xl font-bold text-white font-poppins">
+              Life Republic
+            </h1>
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden md:flex space-x-8 items-center">
             {navItems.map((item) => (
               <Link
                 key={item.name}
@@ -43,7 +52,7 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
                 spy={true}
                 smooth={true}
                 duration={500}
-                className="text-gray-800 hover:text-primary px-4 py-2 rounded-md text-lg font-semibold cursor-pointer transition-all duration-300 ease-in-out transform hover:scale-105"
+                className="text-white hover:text-primary px-4 py-2 rounded-md text-lg font-semibold cursor-pointer transition-all duration-300 ease-in-out transform hover:scale-105"
               >
                 {item.name}
               </Link>
@@ -64,7 +73,7 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white shadow-lg rounded-lg mt-4 transition-all duration-300 ease-in-out transform opacity-100">
+        <div className="md:hidden bg-white shadow-lg rounded-lg mt-2 mx-4 transition-all duration-300 ease-in-out transform opacity-100">
           <div className="px-6 py-4 space-y-4">
             {navItems.map((item) => (
               <Link

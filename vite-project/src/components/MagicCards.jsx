@@ -7,10 +7,10 @@ export function MagicCard({
   children,
   className,
   gradientSize = 200,
-  gradientColor = "#EFB6C8", // Background color (gray)
+  gradientColor = "#06201b", // Deep green background
   gradientOpacity = 0.5, // Background opacity
-  gradientFrom = "#C4D9FF", // Start color for border (violet)
-  gradientTo = "#E5D0AC", // End color for border (pink)
+  gradientFrom = "#cd7f32", // Start color for border (metallic gold)
+  gradientTo = "#e5b873",// End color for border (pink)
 }) {
   const cardRef = useRef(null);
   const mouseX = useMotionValue(-gradientSize);
